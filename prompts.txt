@@ -1,0 +1,37 @@
+=================== GROK ===================
+I would like you to summarize each part for me. Make sure to label each chapter's parts, for example:
+
+Chapter 3: TITLE
+- description
+
+3.1 TITLE
+- summary
+
+After that, Create a 10 presentation slide key points using the summarization that you created, Make sure to include the chapter's sub parts in each key points title that you will use:
+
+Slide 1: Introduction To {TITLE}
+- introduction contents
+
+Slide 2:  {TITLE}  {CHAPTER PART i.e. 3.1}
+- Contents
+
+and so on, You can add as many contents as you want per slide but make sure that it could still be fitted in a single slide. 
+
+--------------------- Content To Summarize ---------------------
+
+
+
+=================== GAMMA ===================
+
+Create a professional PowerPoint presentation based on the 10 slides provided, focusing on clear, text-based content with bullet points for readability. Ensure the design is minimalist and text-heavy to convey detailed information without visual distractions. Prioritize logical flow from introduction to subparts and key points, using consistent slide titles that incorporate chapter subsections for easy navigation. Optimize bullet points to be concise yet comprehensive, ensuring each slide stands alone while contributing to the overall summary of Chapter
+
+Notes in the prompt:
+- Not to use much images and strictly no emojies or icons
+- No animations
+- No instructions about what colors, slide sizes (aspect ratio, etc.), font style and font sizes or backgrounds to use
+
+=================== GEMINI ===================
+Format this properly and look for improper grammar or use of wrong grammar, make sure to give justice to the line if it needs a proper attention (i.e. Titles, sub-titles, etc.) and dont forget to add the chapter number and titles
+
+
+--------------------- Content To H5P ---------------------

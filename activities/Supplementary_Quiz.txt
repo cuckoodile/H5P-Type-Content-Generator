@@ -1,0 +1,48 @@
+::Q1::What is the standard corporate income tax rate for Australian companies with aggregated turnover above $50 million? {
+=30%
+~25%
+~10%
+~33%
+}
+
+::Q2::Businesses with an annual GST turnover of less than $75,000 cannot voluntarily register for GST. {FALSE}
+
+::Q3::The superannuation guarantee contribution rate for eligible employees is currently {=11.5}% and is set to increase to {=12}% by July 2025.
+
+::Q4::Match the niche tax with its primary description. {
+=Wine Equalisation Tax (WET) -> 29% tax on the wholesale value of wine
+=Luxury Car Tax (LCT) -> 33% tax on the value of luxury cars exceeding a threshold
+=Fringe Benefits Tax (FBT) -> Applies to non-cash benefits provided to employees
+}
+
+::Q5::Which AASB standard specifically governs the accurate recognition and measurement of income tax liabilities? {
+=AASB 112
+~AASB 15
+~AASB 116
+~AASB 110
+}
+
+::Q6::Complete the sentence using the correct words. {
+GST is a {1:DRAG_AND_DROP:10% =20% =5%} consumption tax on most goods, services, and other items sold or consumed in {2:DRAG_AND_DROP:Australia =New Zealand =Canada}.
+}
+
+::Q7::The general deadline for most Australian businesses to file their annual income tax return with the ATO is October 31. {TRUE}
+
+::Q8::Which of the following taxes or payments are typically reported and paid via the Business Activity Statement (BAS)? Select all that apply. {
+=%100%GST
+=%100%PAYG withholding
+=%100%PAYG instalments
+=%100%FBT instalments
+=%100%Wine Equalisation Tax (WET)
+=%100%Luxury Car Tax (LCT)
+~Corporate Income Tax (annual filing payment)
+}
+
+::Q9::If a GST-registered business has sales of $22,000 (GST inclusive) and purchases of $11,000 (GST inclusive) for a quarter, their net GST payable to the ATO for that period would be ${=1000}.
+
+::Q10::What is the mandatory GST registration threshold for non-profit organizations in Australia? {
+=$150,000 or more
+~$75,000 or more
+~No mandatory threshold
+~$50,000 or more
+}
