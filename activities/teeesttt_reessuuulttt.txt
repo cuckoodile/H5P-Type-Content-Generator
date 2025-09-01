@@ -1,0 +1,31 @@
+```gift
+::Tax Rates::What is the standard corporate income tax rate for businesses with aggregated turnover above $50 million or significant passive income?{
+=30%
+~25%
+~10%
+~11.5%
+}
+
+::GST Registration::Businesses with an annual GST turnover of $75,000 or more are mandatorily required to register for GST.{TRUE}
+
+::BAS Deadline Example::For most small businesses, quarterly BAS filings are due on the 28th of the month following the quarter. One such deadline is the 28th of {=February}.
+
+::BAS Components (Drag and Drop)::Drag the correct tax types into the blanks below: The Business Activity Statement (BAS) is used to report and pay various taxes to the ATO, including {=GST}, {=PAYG withholding}, {=PAYG instalments}, and {=FBT instalments}.
+
+::Niche Tax Rates (Mark the Words)::Mark the words below that correctly state the tax rates for Wine Equalisation Tax (WET) and Luxury Car Tax (LCT). WET is {*29%*} and LCT is {*33%*}.
+
+::SMART Achievable::Which element of SMART goal setting focuses on ensuring objectives are realistic and attainable?{
+~Specific
+~Measurable
+=Achievable
+~Relevant
+}
+
+::Documentation Impact::Documenting responsibilities primarily serves a formal purpose and has little impact on team member engagement.{FALSE}
+
+::Manager's Role (Competencies)::As a manager, your role in effective goal development includes articulating the organizational framework for goal setting and assessing team {=competencies}.
+
+::Functional Role Steps (Drag the Words)::Drag the correct words to complete the steps for developing functional roles: First, {=list} all tasks; second, {=analyze} current projects; and third, {=map} tasks to team members' strengths.
+
+::Superannuation Rate::The mandatory superannuation contributions for eligible employees are currently {=11.5%} of their ordinary time earnings.
+```

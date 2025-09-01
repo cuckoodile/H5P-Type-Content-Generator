@@ -4,13 +4,14 @@ import os
 def ppt_reader(file_path):
     if not os.path.exists(file_path):
         print(f"[ERROR] File not found: {file_path}")
-        return
+        return ""
 
     presentation = Presentation(file_path)
     nsmap = {'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'}
+    output_lines = []
 
     for i, slide in enumerate(presentation.slides):
-        print(f"\n--- Slide {i + 1} ---")
+        output_lines.append(f"\n--- Slide {i + 1} ---")
         for shape in slide.shapes:
             numbered_index = 1  # Reset numbering per shape
 
@@ -31,27 +32,30 @@ def ppt_reader(file_path):
                             bullet_type = "Numbered"
 
                         if bullet_type == "Bullet":
-                            print(f"* {text}")
+                            output_lines.append(f"* {text}")
                         elif bullet_type == "Numbered":
-                            print(f"{numbered_index}. {text}")
+                            output_lines.append(f"{numbered_index}. {text}")
                             numbered_index += 1
                         else:
-                            print(text)
+                            output_lines.append(text)
 
                     except Exception as e:
-                        print(f"[WARN] Failed to parse paragraph: {e}")
+                        output_lines.append(f"[WARN] Failed to parse paragraph: {e}")
 
             # Handle tables
             elif hasattr(shape, "has_table") and shape.has_table:
                 try:
-                    print("[Table]")
+                    output_lines.append("[Table]")
                     for row in shape.table.rows: # type: ignore
                         row_text = [cell.text.strip() for cell in row.cells if cell.text.strip()]
                         if row_text:
-                            print(" | ".join(row_text))
+                            output_lines.append(" | ".join(row_text))
                 except Exception as e:
-                    print(f"[WARN] Failed to parse table: {e}")
+                    output_lines.append(f"[WARN] Failed to parse table: {e}")
+
+    return "\n".join(output_lines)
 
 if __name__ == "__main__":
     pptx_file = "../references/Managing-Work-Goal-Development-Ch-1.pptx"
-    ppt_reader(pptx_file)
+    extracted_text = ppt_reader(pptx_file)
+    print(extracted_text)
