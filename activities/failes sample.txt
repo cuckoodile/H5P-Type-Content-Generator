@@ -1,0 +1,55 @@
+::True/False::Multiplatform advertising exclusively focuses on print and broadcast media channels.
+{
+=FALSE
+~TRUE
+}
+
+::Fill in the Blanks::Advertising campaigns that aim to build awareness for new products or features are classified as {=Informative} advertising.
+{
+=Informative
+}
+
+::Drag and Drop::When classifying advertising by Target Audience, two primary types are {=Consumer} and {=B2B}.
+{
+=Consumer
+=B2B
+}
+
+::Mark the Words::Among the core principles of effective advertising, which one advises to keep messages clear and non-complex? {~Target Specific Users~Maintain Consistency=Simplify Messages}
+
+::Drag the Words::The three core purposes of advertising listed in the chapter are to inform, to {=persuade}, and to generate awareness or {=sales}.
+{
+options:inform,persuade,generate awareness,sales
+}
+
+::True/False::The Project Scope Statement requires client sign-off before creative work begins to prevent scope creep.
+{
+=TRUE
+~FALSE
+}
+
+::Multiple Choice::Advertising campaigns that target an entire country are classified by Geographical Coverage as:
+{
+~Regional
+~Local
+=National
+~International
+}
+
+::Drag the Words::Precision targeting and data analytics in multiplatform advertising primarily contribute to [blank:Cost Efficiency].
+{
+options:Cost Efficiency,Omnipresence,Optimized Performance,Expanded Targeted Reach
+}
+
+::Fill in the Blanks::"Applause Rate" and "Amplification Rate" are classified as {___} metrics when measuring multiplatform campaign effectiveness.
+{
+=Engagement
+}
+
+::Multiple Choice::Which category of factors, including perceptions, attitudes, and motivations, significantly influences consumer buying choices?
+{
+=Psychological Factors
+~Personal Factors
+~Social Factors
+~Demographic Factors
+}

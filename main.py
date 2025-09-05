@@ -5,32 +5,30 @@ import json
 from google import genai
 from tests import ppt_reader_test  # type: ignore
 from dotenv import load_dotenv
+import questionary
 
-# ------------- Variables ------------- #
+# ------------- Configuration ------------- #
 debugger = False
 ppt_reader = ppt_reader_test.ppt_reader
 lesson_references = [
-    "chapter3.txt",
-    "Managing-Work-Goal-Development-Ch-1.pptx"
-
-    # Add more references as needed
+    "chapter1.txt",
+    "Chapter-1-Digital-Marketing-Create-Multiplatform-Advertisements-for-Mass-Media.pptx",
 ]
-result_name = "Supplementary_Quiz.txt"
-references_path = "./references"
+result_name = "Chapter 1"
+references_path = "./references/digital_market"
 activities_path = "./activities"
 
-# Load sensitive info from .env
+# Load environment variables
 load_dotenv()
-
-# API keys and model from environment variables
 gemini_keys = {
+    "holeeshet68": os.getenv("GEMINI_KEY_3"),
     "lhourdeiansube7": os.getenv("GEMINI_KEY_1"),
     "li.sube": os.getenv("GEMINI_KEY_2"),
-    "holeeshet68": os.getenv("GEMINI_KEY_3"),
 }
 gemini_model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
-# ------------- Error Logger (append mode) ------------- #
+
+# ------------- Error Logger ------------- #
 def log_error_to_file(message):
     os.makedirs(activities_path, exist_ok=True)
     log_path = os.path.join(activities_path, "h5p_generator.log")
@@ -43,7 +41,8 @@ def log_error_to_file(message):
     )
     logging.error(message)
 
-# ------------- AI Generation ------------- #
+
+# ------------- Gemini API Handler ------------- #
 def get_gemini_response_with_keys(prompt, key_dict, model):
     exhausted_keys = set()
     last_exception = None
@@ -63,8 +62,10 @@ def get_gemini_response_with_keys(prompt, key_dict, model):
             print(f"[WARN] Key failed: {email}. Reason: {e}")
     raise RuntimeError(f"All given keys are exhausted: {last_exception}")
 
-def generate_activity(tagged_lesson_content):
-    prompt = f"""
+
+# ------------- Prompt Builder ------------- #
+def build_prompt(tagged_lesson_content, difficulty="easy"):
+    return f"""
 > You are a helpful assistant that generates H5P activities based on a given lesson content.
 > Generate a TXT file containing GIFT content for an H5P Question Set quiz.
 > The quiz should have 10 questions, mixing:
@@ -75,93 +76,171 @@ def generate_activity(tagged_lesson_content):
     - Mark the Words
     - Drag the Words
 > Notes:
-    -Each question = 1 point. Include only the GIFT text, no explanations.
+    - Each question = 1 point. Include only the GIFT text, no explanations.
     - Do not use icons or emoji
-    - Do not use multiple responses or answers since each question must only amount to 1 point i.e.
-        Question 4 (Drag and Drop - Multiple Response)
-            Select all the taxes that are specifically categorized as 'Niche Taxes' in the module.
-                ~%100%Wine Equalisation Tax (WET)
-                ~Corporate Income Tax
-                ~%100%Luxury Car Tax (LCT)
-                ~Goods and Services Tax (GST)
-                ~%100%Fringe Benefits Tax (FBT)
-    - Use this format when generating an activity:
-        Question {{Current question number}} ({{Question set type i.e. True or False, Drag and Drop, etc.}})
-        Question contents....
+    - Do not use multiple responses or answers since each question must only amount to 1 point.
+    - Do not include markdown formatting or question numbers.
+    - Use this format:
+        ::{{Question type}}
+        ::Question text...
+        {{
+        ~Wrong answer
+        =Correct answer
+        ~Wrong answer
+        }}
+    - Make sure the questions are {difficulty} and answerable.
+    - Do not allow any duplications, each question must be unique.
 
 > Lesson references:
 {tagged_lesson_content}
 """
-    return get_gemini_response_with_keys(prompt, gemini_keys, gemini_model)
 
-# ------------- Main Function ------------- #
-def main():
-    print("[STEP] Initializing script...")
-    print(f"[INFO] Output file will be: {os.path.join(activities_path, result_name)}")
 
-    tagged_content_blocks = []
-
+# ------------- Lesson Reader ------------- #
+def read_lesson_content():
+    tagged_blocks = []
     for idx, ref_name in enumerate(lesson_references, start=1):
         full_path = os.path.join(references_path, ref_name)
         print(f"[STEP] Reading reference: {full_path}")
-
         if not os.path.exists(full_path):
             msg = f"Lesson file not found: {full_path}"
             print(f"[ERROR] {msg}")
             log_error_to_file(msg)
             continue
-
         try:
-            if ref_name.lower().endswith(".h5p"):
-                with zipfile.ZipFile(full_path, "r") as zip_ref:
-                    if "content/content.json" not in zip_ref.namelist():
-                        raise ValueError("No content/content.json found in the H5P file.")
-                    with zip_ref.open("content/content.json") as f:
-                        lesson_content_dict = json.load(f)
-                        content = json.dumps(lesson_content_dict, indent=2)
-
-            elif ref_name.lower().endswith(".pptx"):
+            if ref_name.lower().endswith(".pptx"):
                 content = ppt_reader(full_path)
-
             else:
                 with open(full_path, "r", encoding="utf-8") as f:
                     content = f.read()
-
-            tagged_block = f"Reference {idx} ({ref_name}):\n{content}"
-            tagged_content_blocks.append(tagged_block)
-
+            tagged_blocks.append(f"Reference {idx} ({ref_name}):\n{content}")
         except Exception as e:
             msg = f"Error reading {ref_name}: {e}"
             print(f"[ERROR] {msg}")
             log_error_to_file(msg)
+    return "\n\n".join(tagged_blocks)
 
-    combined_content = "\n\n".join(tagged_content_blocks)
 
-    if not combined_content.strip():
+# ------------- Quiz Generators ------------- #
+def generate_main_quiz(content):
+    prompt = build_prompt(content, difficulty="medium")
+    return get_gemini_response_with_keys(prompt, gemini_keys, gemini_model)
+
+
+def generate_supplementary_quiz(content):
+    prompt = build_prompt(content, difficulty="easy")
+    return get_gemini_response_with_keys(prompt, gemini_keys, gemini_model)
+
+
+def generate_quiz_package(content):
+    prompt_main = build_prompt(content, difficulty="medium")
+    prompt_supp = build_prompt(content, difficulty="easy")
+
+    main_quiz = get_gemini_response_with_keys(prompt_main, gemini_keys, gemini_model)
+    supp_quiz = get_gemini_response_with_keys(prompt_supp, gemini_keys, gemini_model)
+
+    return main_quiz.strip(), supp_quiz.strip()
+
+
+# ------------- Supplementary Validator ------------- #
+def validate_and_regenerate_supplementary_quiz(main_path, supp_path, lesson_content):
+    try:
+        with open(main_path, "r", encoding="utf-8") as f:
+            main_content = f.read()
+        with open(supp_path, "r", encoding="utf-8") as f:
+            supp_content = f.read()
+    except Exception as e:
+        print(f"[ERROR] Failed to read quiz files: {e}")
+        log_error_to_file(f"Failed to read quiz files: {e}")
+        return
+
+    # Build prompt to detect overlap and regenerate if needed
+    prompt = f"""
+> You are a quiz validator and generator.
+> Compare the two GIFT-format quizzes below and identify any overlapping or duplicate questions in concept or phrasing.
+> If overlaps are found, regenerate only the overlapping questions using the lesson content.
+> Return a clean supplementary quiz with exactly 10 unique questions in GIFT format where each questions are separated by a empty line (/n).
+> Do NOT include any analysis, commentary, or explanation—only the final quiz content.
+> Use this sample format:
+    ::{{Question type}}
+    ::Question text...
+    {{
+    ~Wrong answer
+    =Correct answer
+    ~Wrong answer
+    }}
+
+> Main Quiz:
+{main_content}
+
+> Supplementary Quiz:
+{supp_content}
+
+> Lesson Content:
+{lesson_content}
+"""
+    print("[STEP] Validating and regenerating supplementary quiz...")
+    updated_supp_quiz = get_gemini_response_with_keys(prompt, gemini_keys, gemini_model)
+
+    # Save updated supplementary quiz
+    save_quiz(f"{result_name} Supplementary Quiz.txt", updated_supp_quiz.strip())
+
+
+# ------------- File Writer ------------- #
+def save_quiz(filename, content):
+    os.makedirs(activities_path, exist_ok=True)
+    path = os.path.join(activities_path, filename)
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"[SUCCESS] Saved: {path}")
+    except Exception as e:
+        msg = f"Error saving file {path}: {e}"
+        print(f"[ERROR] {msg}")
+        log_error_to_file(msg)
+
+
+# ------------- Menu Prompt ------------- #
+def display_menu():
+    options = [
+        "Quiz Package (Main + Supplementary - 20 unique questions)",
+        "Main Quiz (10 medium-difficulty questions)",
+        "Supplementary Quiz (10 easy questions)",
+    ]
+    choice = questionary.select(
+        "Choose the type of quiz to generate:", choices=options
+    ).ask()
+    return options.index(choice) if choice in options else None
+
+
+# ------------- Main Entry Point ------------- #
+def main():
+    print("[STEP] Initializing script...")
+    choice = display_menu()
+    lesson_content = read_lesson_content()
+
+    if not lesson_content.strip():
         print("[ERROR] No valid lesson content found.")
         log_error_to_file("No valid lesson content found from provided references.")
         return
 
-    # Generate quiz
-    try:
-        print("[STEP] Sending request to LLM...")
-        gemini_response = generate_activity(combined_content)
-        print("[INFO] LLM response received.")
+    if choice == 0:
+        print("[STEP] Generating Quiz Package...")
+        main_quiz, supp_quiz = generate_quiz_package(lesson_content)
+        main_path = os.path.join(activities_path, f"{result_name} Quiz.txt")
+        supp_path = os.path.join(activities_path, f"{result_name} Supplementary Quiz.txt")
+        save_quiz(f"{result_name} Quiz.txt", main_quiz)
+        save_quiz(f"{result_name} Supplementary Quiz.txt", supp_quiz)
+        validate_and_regenerate_supplementary_quiz(main_path, supp_path, lesson_content)
 
-        os.makedirs(activities_path, exist_ok=True)
-        output_path = os.path.join(activities_path, result_name)
-        with open(output_path, "w", encoding="utf-8") as f:
-            f.write(gemini_response.strip())
+    elif choice == 1:
+        print("[STEP] Generating Main Quiz...")
+        main_quiz = generate_main_quiz(lesson_content)
+        save_quiz(f"{result_name} Quiz.txt", main_quiz)
 
-        print(f"[SUCCESS] Quiz saved to: {output_path}")
+    elif choice == 2:
+        print("[STEP] Generating Supplementary Quiz...")
+        supp_quiz = generate_supplementary_quiz(lesson_content)
+        save_quiz(f"{result_name} Supplementary Quiz.txt", supp_quiz)
 
-    except Exception as e:
-        msg = f"Error generating quiz: {e}"
-        print(f"[ERROR] {msg}")
-        log_error_to_file(msg)
-        return
-
-    print("[DONE] Script completed successfully.")
-
-if __name__ == "__main__":
-    main()
+main()

@@ -1,0 +1,83 @@
+::{Multiple Choice}
+::What is the primary goal of persuasive advertising?
+{
+~To build awareness for new products.
+=To shape brand perception and build superiority.
+~To maintain top-of-mind recall for established brands.
+~To collect consumer demographic data.
+}
+
+::{True/False}
+::Advertising is defined as a paid promotion designed to inform, persuade, and generate awareness or sales.
+{
+=TRUE
+~FALSE
+}
+
+::{Fill in the Blanks}
+::Advertising that focuses on a specific nearby area is classified as {=Local~National~Regional~International} advertising.
+{
+~National
+=Local
+~Regional
+~International
+}
+
+::{Multiple Choice}
+::Which strategic advantage of multiplatform advertising helps create a dominant, larger-than-life brand image?
+{
+~Cost Efficiency
+~Optimized Performance
+~Expanded Targeted Reach
+=Omnipresence
+}
+
+::{True/False}
+::Share of Voice is an awareness metric that compares brand mentions against competitors.
+{
+=TRUE
+~FALSE
+}
+
+::{Multiple Choice}
+::According to the core principles of effective advertising, messages should be kept {} for easy comprehension and maximum impact.
+{
+~Complex
+~Detailed
+=Clear and non-complex
+~Abstract
+}
+
+::{Fill in the Blanks}
+::Perceptions, attitudes, motivations, and learning processes are considered {=Psychological~Social~Personal~Economic} factors influencing consumer behavior.
+{
+~Social
+=Psychological
+~Personal
+~Economic
+}
+
+::{True/False}
+::Need Recognition can only be triggered by external stimuli, such as an advertisement.
+{
+~TRUE
+=FALSE
+}
+
+::{Multiple Choice}
+::Which element of a Creative Brief includes specific, measurable goals like "increase online sales by 15% in Q4"?
+{
+~Company & Product Background
+=Campaign Objectives
+~Target Audience Details
+~Timeline
+}
+
+::{Fill in the Blanks}
+::One section of a Project Scope Statement explicitly states what the project will NOT include, preventing misunderstandings and controlling expectations. This is known as {=Excluded Scope~Detailed Tasks~Clear Purpose~Formal Approval}.
+{
+~budget overruns
+=Excluded Scope
+~creative block
+~market saturation
+}

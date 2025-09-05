@@ -1,0 +1,80 @@
+::{Multiple Choice}
+::What is the Latin origin of the term "advertere" from which advertising is derived?
+{
+~Latin for "to inform"
+~Latin for "to persuade"
+=Latin for "to turn attention"
+~Latin for "to spread news"
+}
+
+::{True/False}
+::Online ads and social media are classified under Broadcast media type in advertising classifications.
+{{
+~TRUE
+=FALSE
+}}
+
+::{Fill in the Blanks}
+::Which key type of advertising is primarily designed to maintain top-of-mind recall for established brands?
+{
+~Informative
+~Persuasive
+=Reminder
+}
+
+::{Drag the Words}
+::Demographics, lifestyle, and personality are all examples of { } factors that influence consumer behavior.
+{
+~Psychological
+=Personal
+~Social
+}
+
+::{Multiple Choice}
+::A campaign focused on image building or corporate branding, rather than promoting a specific item, is classified as what type of advertising by purpose?
+{
+~Product
+=Non-Product
+~Commercial
+~Action
+}
+
+::{True/False}
+::According to the lesson, "Applause Rate" (likes, favorites) is primarily categorized as an Awareness Metric for multiplatform campaigns.
+{
+=FALSE
+~TRUE
+}
+
+::{Fill in the Blanks}
+::The Creative Brief should include { } objectives, which are specific and measurable goals for an advertising campaign.
+{
+~General
+=Campaign
+~Vague
+}
+
+::{Drag and Drop}
+::An advertisement that creates awareness of a problem or desire is most likely to trigger which initial stage of the consumer buying decision process?
+{
+~Information Search
+=Need Recognition
+~Purchase Decision
+}
+
+::{Mark the Words}
+::In the context of a Project Scope Statement, which term refers to unplanned additions that inflate costs and timelines?
+{
+~Objectives
+~Deliverables
+=Scope creep
+~Approvals
+}
+
+::{Drag the Words}
+::To create compelling multiplatform campaigns, it is crucial to maintain { } across all channels, ensuring a consistent look, feel, and brand taglines.
+{
+~Variety
+~Flexibility
+=Consistency
+}
